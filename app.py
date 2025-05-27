@@ -1,23 +1,18 @@
 import streamlit as st
 import openai
 
-# GANTI dengan API key kamu
-openai.api_key = "sk-xxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+openai.api_key = st.secrets["OPENAI_API_KEY"]
 
-st.title("AI Penulis Konten Otomatis")
+response = openai.ChatCompletion.create(
+    model="gpt-3.5-turbo",  # atau "gpt-4" jika kamu punya akses
+    messages=[
+        {"role": "system", "content": "Kamu adalah penulis konten profesional."},
+        {"role": "user", "content": prompt}
+    ],
+    max_tokens=100
+)
 
-topik = st.text_input("Topik Konten:")
-gaya = st.selectbox("Gaya Bahasa:", ["Santai", "Formal", "Lucu", "Motivasi", "Untuk Iklan"])
-
-if st.button("Generate"):
-    if topik:
-        prompt = f"Tuliskan konten singkat tentang '{topik}' dengan gaya '{gaya}' dalam 2-3 kalimat."
-        response = openai.Completion.create(
-            engine="text-davinci-003",
-            prompt=prompt,
-            max_tokens=100
-        )
-        hasil = response.choices[0].text.strip()
+generated_text = response['choices'][0]['message']['content']
         st.text_area("Hasil Konten:", value=hasil, height=150)
     else:
         st.warning("Masukkan topik dulu ya!")
