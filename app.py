@@ -13,6 +13,7 @@ response = openai.ChatCompletion.create(
 )
 
 generated_text = response['choices'][0]['message']['content']
+if hasil:
         st.text_area("Hasil Konten:", value=hasil, height=150)
     else:
         st.warning("Masukkan topik dulu ya!")
