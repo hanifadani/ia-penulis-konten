@@ -7,7 +7,7 @@ st.title("✍ AI Penulis Konten Otomatis")
 st.markdown("Buat konten secara instan dengan bantuan AI. Masukkan topik, dan dapatkan hasil tulisan secara otomatis.")
 
 # API Key dari secrets
-openai.api_key = st.secrets["OPENAI_API_KEY"]
+OPENAI_API_KEY = "sk-xxxxxxxxxxxxxxxxxxxxxxxx"
 
 # Input dari user
 prompt = st.text_input("📝 Masukkan topik konten:")
